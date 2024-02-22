@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Atlas | Lobby</title>
+    <title>Atlas | Instructions</title>
 </head>
 <body class="bg-orange-500">
     <main class="h-screen flex-col m-5">
-        <h2 class="text-white text-3xl mb-2">Lobbies</h2>
-        <div class="rounded-lg border-white border-4 border-solid h-72"></div>
+        <h2 class="text-white text-3xl mb-2">Instructions</h2>
+        <ul class="rounded-lg border-white border-4 border-solid list-disc list-inside p-5">
+            <li class="text-white mb-4">Type a word that starts with the letter you see on screen with in time given.</li>
+            <li class="text-white mb-4">Your opponent must write a word starting with your word's last letter within a limited time.</li>
+            <li class="text-white mb-4">As the rounds continue time to submit a word will decrease.</li>
+            <li class="text-white mb-4">First player to misspell a word or not submit a word in time loses.</li>
+            <li class="text-white mb-4">The valid words are the same as in scrabble (no proper nouns!)</li>
+        </ul>
         <div class="flex items-center justify-between">
-            <button class="bg-green-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-green-600"
-                hx-get="/lobby"
-                hx-push-url="true"
-                hx-trigger="click"
-                hx-target="body">Create
-            </button>
             <button class="bg-green-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-green-600"
                 hx-get="/"
                 hx-push-url="true"
