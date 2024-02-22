@@ -8,11 +8,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Atlas | Home</title>
 </head>
-<body>
-    <h1>Hello</h1>
-    <button hx-get="/login"
-        hx-push-url="true"
-        hx-trigger="click"
-        hx-target="body">Login</button>
+<body class="bg-orange-500">
+    <main class="h-screen flex items-center justify-center flex-col m-5">
+        <h1 class="text-white text-9xl">ATLAS</h1>
+        <h2 class="text-white text-4xl">A Game of Words</h2>
+        <div class="flex items-center justify-center">
+            <button class="bg-green-500 border rounded-lg px-16 py-4 shadow-md text-white text-3xl mt-8 hover:bg-green-600"
+                hx-get="/lobby"
+                hx-push-url="true"
+                hx-trigger="click"
+                hx-target="body">Play
+            </button>
+        </div>
+    </main>
 </body>
 </html>
