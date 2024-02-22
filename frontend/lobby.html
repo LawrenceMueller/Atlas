@@ -7,10 +7,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Atlas | Lobby</title>
 </head>
-<body class="bg-orange-500">
-    <main class="h-screen flex-col m-5">
-        <h2 class="text-white text-3xl mb-2">Lobbies</h2>
-        <div class="rounded-lg border-white border-4 border-solid h-72"></div>
+<body class="bg-orange-500 flex items-center justify-center m-5">
+    <main id="main" class="h-screen flex-col m-5 max-w-4xl w-full">
+        <div class="flex justify-between">
+            <h2 class="text-white text-3xl mb-2">Lobbies</h2>
+            <button class="bg-blue-500 border rounded-lg px-4 py-1 shadow-md text-white text-m hover:bg-blue-600 ml-4"
+                hx-get="/lobbyData"
+                hx-trigger="click"
+                hx-target="#lobbyData">&#8635;
+            </button>
+        </div>
+        <div id="lobbyData" class="rounded-lg border-white border-4 border-solid h-72 overflow-y-scroll mt-2"
+            hx-target="#lobbyData"
+            hx-get="/lobbyData"
+            hx-target="#lobbyData"
+            hx-trigger="load">
+        </div>
         <div class="flex items-center justify-between">
             <button class="bg-green-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-green-600"
                 hx-get="/lobby"
@@ -23,7 +35,7 @@
                 hx-push-url="true"
                 hx-trigger="click"
                 hx-target="body">Home
-        </button>
+            </button>
         </div>
     </main>
 </body>
