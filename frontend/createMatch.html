@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Atlas | Create Match</title>
+</head>
+<body class="bg-orange-500">
+    <main class="h-screen flex-col m-5">
+        <h2 class="text-white text-3xl mb-2">Create Match</h2>
+        <ul class="rounded-lg border-white border-4 border-solid list-disc list-inside p-5">
+            <li class="text-white mb-4">Enter a name for your opponent to recognize</li>
+        </ul>
+        <div class="flex items-center justify-between">
+            <button class="bg-green-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-green-600"
+                hx-get="/waitingRoom"
+                hx-push-url="true"
+                hx-trigger="click"
+                hx-target="body">Confirm
+            </button>
+            <button class="bg-red-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-red-600"
+                hx-get="/lobby"
+                hx-push-url="true"
+                hx-trigger="click"
+                hx-target="body">Lobby
+            </button>
+        </div>
+    </main>
+</body>
+</html>
