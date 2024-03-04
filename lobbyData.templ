@@ -4,6 +4,7 @@ templ lobbyData(lobbies []string) {
 	<ul>
         for _, lobby := range lobbies {
             <li hx-get="/joinLobbyConfirmation" hx-target="#main" hx-trigger="click" class="text-white w-full p-5 bg-green-500 hover:bg-green-600">{ lobby }</li>
+            <hr class="w-full "/>
         }
     </ul>
 }

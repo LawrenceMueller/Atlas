@@ -3,8 +3,9 @@ package main
 templ joinLobbyConfirmation(lobby string) {
 	<h2 class="text-white text-3xl mb-2">Confirm</h2>
     <ul class="rounded-lg border-white border-4 border-solid list-disc list-inside p-5">
-        <li class="text-white mb-4 list-none">Are you sure you would like to join lobby: </li>
-        <li class="text-white mb-4 list-none">{lobby}</li>
+        <li class="text-white mb-4 list-none">You are about to join a match with: lksdjflskfdjslfjsljfsjkfksjfjk</li>
+        <li class="text-white mb-4 list-none">Please enter your name:</li>
+        <input type="text" id="playerName" class="rounded-lg w-full p-2.5" required maxlength="25" />
     </ul>
     <div class="flex items-center justify-between">
         <button class="bg-green-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-green-600"

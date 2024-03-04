@@ -23,20 +23,7 @@ func joinLobbyConfirmation(lobby string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h2 class=\"text-white text-3xl mb-2\">Confirm</h2><ul class=\"rounded-lg border-white border-4 border-solid list-disc list-inside p-5\"><li class=\"text-white mb-4 list-none\">Are you sure you would like to join lobby: </li><li class=\"text-white mb-4 list-none\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var2 string
-		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(lobby)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `joinLobbyConfirmationComponent.templ`, Line: 6, Col: 52}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</li></ul><div class=\"flex items-center justify-between\"><button class=\"bg-green-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-green-600\" hx-get=\"/\" hx-push-url=\"true\" hx-trigger=\"click\" hx-target=\"body\">Confirm\r</button> <button class=\"bg-red-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-red-600\" hx-get=\"/lobby\" hx-push-url=\"true\" hx-trigger=\"click\" hx-target=\"body\">Back\r</button></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h2 class=\"text-white text-3xl mb-2\">Confirm</h2><ul class=\"rounded-lg border-white border-4 border-solid list-disc list-inside p-5\"><li class=\"text-white mb-4 list-none\">You are about to join a match with: lksdjflskfdjslfjsljfsjkfksjfjk</li><li class=\"text-white mb-4 list-none\">Please enter your name:</li><input type=\"text\" id=\"playerName\" class=\"rounded-lg w-full p-2.5\" required maxlength=\"25\"></ul><div class=\"flex items-center justify-between\"><button class=\"bg-green-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-green-600\" hx-get=\"/\" hx-push-url=\"true\" hx-trigger=\"click\" hx-target=\"body\">Confirm\r</button> <button class=\"bg-red-500 border rounded-lg px-6 py-4 shadow-md text-white text-3xl mt-8 hover:bg-red-600\" hx-get=\"/lobby\" hx-push-url=\"true\" hx-trigger=\"click\" hx-target=\"body\">Back\r</button></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
