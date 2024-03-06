@@ -2,12 +2,44 @@ package main
 
 import (
 	//"context"
+	"database/sql"
+	"fmt"
 	"github.com/a-h/templ"
 	"net/http"
-	//"os"
+	"os"
+	"strings"
+
+	"github.com/joho/godotenv"
+	_ "github.com/tursodatabase/libsql-client-go/libsql"
 )
 
 func main() {
+
+	// Connect to DB
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file:", err)
+		return
+	}
+
+	// Fetch the token from environment variable
+	authToken := os.Getenv("TURSO_DB_TOKEN")
+
+	// URL string with placeholder
+	url := "libsql://atlas.turso.io?authToken=[TOKEN]"
+
+	// Replace the placeholder with the actual token
+	url = strings.Replace(url, "[TOKEN]", authToken, 1)
+
+	db, err := sql.Open("libsql", url)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "failed to open db %s: %s", url, err)
+		os.Exit(1)
+	}
+	defer db.Close()
+
+	// Web Server stuff
+
 	http.Handle("/", http.FileServer(http.Dir("./frontend")))
 
 	// Handle "/lobby" route specifically
@@ -23,6 +55,11 @@ func main() {
 	// Handle "/instructions" route specifically
 	http.HandleFunc("/instructions", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./frontend/instructions.html")
+	})
+
+	// Handle "/waitingRoom" route specifically
+	http.HandleFunc("/waitingRoom", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./frontend/waitingRoom.html")
 	})
 
 	// test data
