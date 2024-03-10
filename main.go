@@ -4,10 +4,13 @@ import (
 	//"context"
 	"database/sql"
 	"fmt"
-	"github.com/a-h/templ"
+	"math/rand"
 	"net/http"
 	"os"
 	"strings"
+	"time"
+
+	"github.com/a-h/templ"
 
 	"github.com/joho/godotenv"
 	_ "github.com/tursodatabase/libsql-client-go/libsql"
@@ -26,7 +29,7 @@ func main() {
 	authToken := os.Getenv("TURSO_DB_TOKEN")
 
 	// URL string with placeholder
-	url := "libsql://atlas.turso.io?authToken=[TOKEN]"
+	url := "libsql://atlas-lawrencemueller.turso.io?authToken=[TOKEN]"
 
 	// Replace the placeholder with the actual token
 	url = strings.Replace(url, "[TOKEN]", authToken, 1)
@@ -36,6 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "failed to open db %s: %s", url, err)
 		os.Exit(1)
 	}
+
 	defer db.Close()
 
 	// Web Server stuff
@@ -59,6 +63,15 @@ func main() {
 
 	// Handle "/waitingRoom" route specifically
 	http.HandleFunc("/waitingRoom", func(w http.ResponseWriter, r *http.Request) {
+		// If this path is invoked the user wants to create a match
+
+		// Get the name and create and ID for the match
+		nameOfMatch := r.URL.Query().Get("playerName")
+		idCreatedForMatch := generateRandomString(10)
+
+		createMatch(db, nameOfMatch, idCreatedForMatch)
+
+		// Create and add to data base a match with this name
 		http.ServeFile(w, r, "./frontend/waitingRoom.html")
 	})
 
@@ -90,4 +103,57 @@ func main() {
 	http.Handle("/joinLobbyConfirmation", templ.Handler(joinLobbyConfirmationComponent))
 
 	http.ListenAndServe(":3000", nil)
+}
+
+func generateRandomString(length int) string {
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
+}
+
+// Function to insert match into data base
+func createMatch(db *sql.DB, matchName string, matchID string) {
+	_, err := db.Exec("INSERT INTO matches (id, name) VALUES (?, ?)", matchID, matchName)
+	if err != nil {
+		fmt.Println("Error inserting new match into database")
+		os.Exit(1)
+	}
+}
+
+// Struct to create a data structure for matches
+type Match struct {
+	ID   string
+	Name string
+}
+
+// Function to get matches for lobby
+func queryMatches(db *sql.DB) {
+	rows, err := db.Query("SELECT * FROM matches")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "failed to execute query get matches: %v\n", err)
+		os.Exit(1)
+	}
+	defer rows.Close()
+
+	var matches []Match
+
+	for rows.Next() {
+		var match Match
+
+		if err := rows.Scan(&match.ID, &match.Name); err != nil {
+			fmt.Println("Error scanning row:", err)
+			return
+		}
+
+		matches = append(matches, match)
+	}
+
+	if err := rows.Err(); err != nil {
+		fmt.Println("Error during rows iteration:", err)
+	}
 }
