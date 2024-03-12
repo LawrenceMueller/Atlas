@@ -48,6 +48,7 @@ func main() {
 
 	// Handle "/lobby" route specifically
 	http.HandleFunc("/lobby", func(w http.ResponseWriter, r *http.Request) {
+		queryMatches(db)
 		http.ServeFile(w, r, "./frontend/lobby.html")
 	})
 
@@ -96,7 +97,6 @@ func main() {
 	// Route to get lobby data
 	lobbyDataComponent := lobbyData(testData)
 	http.Handle("/lobbyData", templ.Handler(lobbyDataComponent))
-	//lobbyDataComponent.Render(context.Background(), os.Stdout)
 
 	// Route to confirm lobby selection
 	joinLobbyConfirmationComponent := joinLobbyConfirmation("test")
@@ -151,9 +151,12 @@ func queryMatches(db *sql.DB) {
 		}
 
 		matches = append(matches, match)
+		fmt.Print(matches)
 	}
 
 	if err := rows.Err(); err != nil {
 		fmt.Println("Error during rows iteration:", err)
 	}
+
+	fmt.Print(matches)
 }
